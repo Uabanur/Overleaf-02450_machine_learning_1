@@ -1,0 +1,40 @@
+\input{header.tex}
+
+\begin{document}
+%\pagenumbering{gobble}
+
+
+\input{frontpage.tex}
+
+
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+
+\section{Introduction}
+\input{introduction.tex}
+
+\section{Description of data set}\label{sec:description_of_data_set}
+\input{description_of_data_set/intro.tex}
+
+
+\section{Explanation of attributes}\label{sec:explanation_of_variables}
+\input{explanation_of_variables/intro.tex}
+
+\section{Data visualization}\label{sec:data_visualization}
+\input{data_visualization/config.tex}
+
+\section{Discussion}\label{sec:discussion}
+\input{discussion/intro.tex}
+
+% Bibliografi (hvis nogen var i tvivl...)
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+
+\section*{Appendix: Group member contribution}
+% Nedenstående tilføjer appendix til indholdsfortegnelse selvom det er skrevet ovenfor med \section*
+\addcontentsline{toc}{section}{Appendix: Group member contribution}
+\input{appContribution/intro.tex}
+
+\end{document}

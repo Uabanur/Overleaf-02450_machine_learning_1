@@ -1,0 +1,72 @@
+%\section{A description of the dataset}
+
+\subsection{The problem of interest}\label{sec:problem_of_interest}
+The data set deals with the characterization of 7 different types of glass based on their chemical composition and refractive index. 
+
+The data set consists of 214 observations of 10 different attributes (11 including the observation ID number):
+
+\begin{enumerate}
+    
+    \setcounter{enumi}{-1}
+    \item \texttt{ID number} (1 to 214)
+    \item \texttt{RI}: Refractive index
+    \item \texttt{Na}: Sodium (unit measurement: Weight percent in corresponding oxide, as are attributes 4-10)
+    \item \texttt{Mg}: Magnesium
+    \item \texttt{Al}: Aluminum
+    \item \texttt{Si}: Silicon
+    \item \texttt{K}: Potassion
+    \item \texttt{Ca}: Calcium
+    \item \texttt{Ba}: Barium
+    \item \texttt{Fe}: Iron
+    \item Glass \texttt{type} (numbered 1 to 7)
+\end{enumerate}
+
+The different types of glass and their corresponding numbers are:
+
+\begin{enumerate}
+    \item building windows - float processed
+    \item building windows - non-float processed
+    \item vehicle windows - float processed
+    \item vehicle windows - non-float processed (none in this dataset)
+    \item containers
+    \item tableware
+    \item headlamps
+\end{enumerate}
+
+\subsection{Source of the dataset}
+
+The data set is obtained from the UCI Machine learning repository:
+
+\url{https://archive.ics.uci.edu/ml/datasets/glass+identification}
+
+It has been compiled by B. German, Central Research Establishment, Home Office Forensic Science Service, Berkshire, and donated by Vina Spiehler, Ph.D., DABFT Diagnostic Products Corporation.
+
+\subsection{What has previously been done to the data}
+
+The original purpose or motivation behind compiling this data set was for criminal investigations: If a small fragment of glass on a crime scene can be correctly identified through its chemical composition and refractive index, it could be used as evidence in court.
+
+The first analysis of the data set comes from  \cite{evett1987induction}. Here, the dataset was analysed with three different classification algorithms: The nearest-neighbor algorithm (NNA), a discriminant analysis (DA), and BEAGLE, a proprietary rule induction package. It was found that for classifying whether a piece of glass was float or non-float processed, the BEAGLE and NNA performed similarly with 75\%-90\% correct guesses, while the DA performed slightly worse.
+
+\subsection{Primary machine learning modeling aim}
+%This dataset is well-suited for a \textbf{multi-class classification analysis}: Given a glass fragment with some refractive index and chemical composition, can we determine the glass type? This will be the primary focus of this and future reports on this dataset. After all, this was the original intent behind collecting this data, and it also appears to be the most interesting approach. 
+
+%That being said, other machine learning aims could also prove interesting:
+
+%\begin{itemize}
+%\item Regression: Can we predict any one of the different continuous attributes 1-9 from the remaining 8 attributes (or 9, if we include the glass type in our analysis)? For instance, can we predict the refractive index of a piece of glass given the chemical composition? This could be of interest in the field of materials science.
+%\item Dimensionality reduction: Can we describe a piece of glass sufficiently well by a representation in less than 10 dimensions? This problem is investigated in this report by a principal component analysis (PCA) of the dataset. 
+%\end{itemize}
+
+%In the analysis of the dataset we will 
+
+In reports to come, the following machine learning tasks will be done on the dataset: %Classification, regression, clustering, association mining, and anomaly detection
+
+\begin{itemize}
+\item \textbf{Multi-class classification analysis}: Given a glass fragment with some refractive index and chemical composition, can we determine the glass type? This was the original intent behind the collection of this data, and it also appears to be the most interesting approach.
+\item \textbf{Regression}: Can we predict any one of the different continuous attributes 1-9 from the remaining 8 attributes (or 9, if we include the glass type in our analysis)? For instance, can we predict the refractive index of a piece of glass given the chemical composition? This could be of interest in the field of materials science.
+\item \textbf{Clustering}: Is there a natural way to partition our data set into smaller groups? Preferably, we would hope that there exists such a grouping (or clustering) from only attributes 1-9 that corresponds to the glass types (attribute 10). However, it could be that there is a better clustering (i.e. with less blurred boundaries) where the glass types are not the same in each group.
+\item \textbf{Association mining}: Do some high values of the glass characteristics occur together? Put more precisely, if a piece of glass has a high weight percentage of a given set of chemicals and/or a high refractive index and/or belong to some class, can we predict other attributes for which the values are high? In order investigate this, we should define what is a high value for each of the data sets  - the threshold could for example be the mean of the attribute in question. Using the given threshold we essentially transform each continuous variable to a binary variable.
+\item \textbf{Anomaly detection}: Are there some pieces of glass whose characteristics deviate highly from the rest?
+\end{itemize}
+
+In all of the cases above, the continuous attributes should be normalized, i.e. subtract the mean value and divide by the standard deviation for each data point (except for the association mining problem). Also, the glass type attribute should be transformed by one-out-of-K coding. 

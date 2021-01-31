@@ -1,0 +1,76 @@
+
+
+\begin{table}[H]
+
+    
+    \centering
+    \begin{tabular}{c||c c c c c c c c c}
+
+~ & \texttt{RI} & \texttt{Na} & \texttt{Mg} & \texttt{Al} & \texttt{Si} & \texttt{K} & \texttt{Ca} & \texttt{Ba} & \texttt{Fe} \\ \hline \hline
+
+\texttt{RI} & 1.00 & -0.19 & -0.12 & -0.41 & -0.54 & -0.29 & 0.81 & -0.00 & 0.14 \\
+
+
+\texttt{Na} & -0.19 & 1.00 & -0.27 & 0.16 & -0.07 & -0.27 & -0.28 & 0.33 & -0.24 \\
+
+\texttt{Mg} & -0.12 & -0.27 & 1.00 & -0.48 & -0.17 & 0.01 & -0.44 & -0.49 & 0.08 \\
+
+
+\texttt{Al} & -0.41 & 0.16 & -0.48 & 1.00 & -0.01 & 0.33 & -0.26 & 0.48 & -0.07 \\
+
+
+\texttt{Si} & -0.54 & -0.07 & -0.17 & -0.01 & 1.00 & -0.19 & -0.21 & -0.10 & -0.09 \\
+
+
+\texttt{K} & -0.29 & -0.27 & 0.01 & 0.33 & -0.19 & 1.00 & -0.32 & -0.04 & -0.01 \\
+
+
+\texttt{Ca} & 0.81 & -0.28 & -0.44 & -0.26 & -0.21 & -0.32 & 1.00 & -0.11 & 0.12 \\
+
+
+\texttt{Ba} & -0.00 & 0.33 & -0.49 & 0.48 & -0.10 & -0.04 & -0.11 & 1.00 & -0.06 \\
+
+
+\texttt{Fe} & 0.14 & -0.24 & 0.08 & -0.07 & -0.09 & -0.01 & 0.12 & -0.06 & 1.00 \\ \hline
+
+
+\texttt{type1}  & -0.16 & 0.50 & -0.74 & 0.60 & 0.15 & -0.01 & 0.00 & 0.58 & -0.19 \\
+
+
+\texttt{type2} & 0.08 & -0.14 & 0.42 & -0.39 & -0.03 & -0.05 & -0.08 & -0.23 & -0.00 \\
+
+
+\texttt{type3} & 0.06 & -0.27 & 0.16 & -0.05 & -0.05 & 0.03 & 0.06 & -0.19 & 0.17 \\
+
+
+\texttt{type5} & -0.04 & 0.01 & 0.18 & -0.14 & -0.09 & -0.04 & -0.04 & -0.10 & 0.00 \\
+
+
+\texttt{type6} & 0.05 & -0.18 & -0.34 & 0.30 & -0.09 & 0.38 & 0.21 & 0.01 & 0.01 \\
+
+
+\texttt{type7} & -0.06 & 0.32 & -0.20 & -0.03 & 0.15 & -0.16 & 0.06 & -0.07 & -0.12 \\
+
+
+    \end{tabular}
+    \caption{Excerpt from the correlation matrix for attributes, computed using the \texttt{similarity.py} script in the software toolbox. The previous \texttt{type} attribute has been 1-out-of-K coded to the new attributes \texttt{type1} through \texttt{type7}, with the full names given in section \ref{sec:problem_of_interest}.}
+    \label{tab:cor_matrix}
+\end{table}
+
+The diagonal elements are 1, since each attribute is trivially correlated with itself, and the matrix is symmetric as expected. The attribute of interest for classification is \texttt{type}, so correlations with respect to the 1-out-of-K encoded \texttt{type} attributes \texttt{type1} through \texttt{type 6} are important for this task. The correlations between types have been omitted.
+
+From the correlation matrix we can extract some information:
+\begin{itemize}
+    %\item Most type attributes are negatively correlated with each other. This may imply that the glass types have (somewhat) distinct sets of values.
+    
+    \item Only refractive index \texttt{RI} and calcium content \texttt{Ca} are attributes that are strongly correlated ($|cor| \geq 0.8$).
+    
+    \item Refraction index \texttt{RI} is weakly correlated with all types. This may connected to the fact that \texttt{RI}-values within a narrow band.
+    
+    \item Silicon weight percent \texttt{Si} is weakly correlated with all type attributes. All observations contain roughly the same value of silicon, so \texttt{Si} may not be well-suited for predicting the glass type.
+    
+    \item \texttt{type1} is somewhat strongly correlated, $|cor| \in [0.5, 0.8]$, with the other non-type attributes, so it may be easier to predict than e.g. \texttt{type5} that is weakly correlated with all non-type attributes.
+    
+\end{itemize}
+
+Now that we have examined the basic summary statistics, it is time to get a visual representation of the data and perform some exploratory data analysis.

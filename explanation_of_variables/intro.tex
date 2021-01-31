@@ -1,0 +1,89 @@
+\subsection{Attribute types}
+The attributes in the data set are mainly discrete nominal  and continuous ratio.
+
+\begin{itemize}
+    \item \textbf{The attribute \texttt{ID number}} is discrete nominal. It is an integer in the interval $[1, 214]$ and is omitted from the data analysis.
+    
+    \item \textbf{The attribute \texttt{RI = refractive index}} is continuous ratio \textbf{or} interval. Refractive index $n$ is a real number representing $n = \frac{c}{v}$, where $c$ is the speed of light in vacuum, and $v$ is the speed of light in the current medium. Hence the refractive index $n$ and the speed of light in the medium $v$ are inversely proportional.
+    
+    \textbf{Argument why \texttt{RI} is interval:} A refractive index of 0 does \textbf{not} mean absence of what is being measured.
+    
+    \textbf{Argument why \texttt{RI} is ratio:}
+    Scaling is well-defined, so it makes physical sense to say that a refractive index is twice as large as another; $\frac{n_2}{n_1} = 2 = \frac{v_1}{v_2}$\footnote{since $n_i$ and $v_i$ are inversely proportional, it follows that $\frac{n_2}{n_1} = \frac{v_1}{v_2}$.} represents that the speed of light is half as fast in the second medium. A refractive index of $n \rightarrow 0$ would imply $v \rightarrow \infty$. Since $v>c$ is not possible, the value $n=0$ is physically impossible, but it does have a specific, physical meaning. 
+    
+    
+    
+    Using the principle from section 2.1.2 in the course note \cite{coursenotes}, we reckon another civilization that invented the refraction index would apply the same meaning to the value n = 0, so we treat the \texttt{RI} attribute as ratio in this report.
+    
+    \item \textbf{The eight weight percent attributes} are all continuous ratio. A value of 0 has the physical meaning that the observation does not contain the specific element. I.e. \texttt{Mg} $ = 0$ means that an observation does not include Magnesium oxide. Scaling is well defined: if the \texttt{Mg} value is doubled, it means that the weight percent is twice as large.
+    
+    \item \textbf{The attribute \texttt{glass type}} is discrete nominal, making it a candidate for 1-out-of-K. coding.
+\end{itemize}
+
+\subsection{Data issues}\label{sec:data_issues}
+The data set is not missing values per se; the data set does not have empty slots\footnote{which could be denoted by NaN entries or similar}, and the web-page from which we acquired the data set addresses this. By direct quote: "\textit{Missing Attribute Values: None}"\footnote{\url{https://archive.ics.uci.edu/ml/machine-learning-databases/glass/glass.names}}. 
+It mentions that there are no data points with \texttt{glass type = 4} with the description "\texttt{vehicle\_windows\_non\_float\_processed}". The exact quote is that there are "\textit{none in this database}", but the author does not explain why, then, the category was included as a possible type.
+
+\subsection{Summary statistics}
+
+In order to get a sense of the 214 observations, we computed the basic summary statistics for each attribute:
+
+\begin{itemize}
+\setlength\itemsep{- 0.5 em}
+\item The minimum and maximum values min and max.
+\item The empirical mean $\hat{\mu}$, empirical variance $\hat{s}$, and empirical standard deviation  $\hat{\sigma}$.
+\item The 25th, 50th and 75th percentiles $p_{25}, p_{50}$, and $p_{75}$, respectively.
+\item The mode.
+\end{itemize}
+
+We included the computed empirical mean, variance and standard deviation of the discrete variable \texttt{type}. The semantics (meaning) of these values are explained below.
+
+\setlength\extrarowheight{4pt}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c}
+
+~ & \texttt{RI} & \texttt{Na} & \texttt{Mg} & \texttt{Al} & \texttt{Si} & \texttt{K} & \texttt{Ca} & \texttt{Ba} & \texttt{Fe} & \texttt{type}\\ \hline \hline
+
+min & 1.51115 & 10.73 & 0.00 & 0.29 & 69.81 & 0.00 & 5.43 & 0.00 & 0.00 & 1 \\
+
+$p_{25}$ & 1.51652 & 12.91 & 2.11 & 1.19 & 72.28 & 0.12 & 8.24 & 0.00 & 0.00 & 1 \\
+
+$p_{50}$ & 1.51768 & 13.30 & 3.48 & 1.36 & 72.79 & 0.56 & 8.60 & 0.00 & 0.00 & 2 \\ 
+
+$p_{75}$ &1.51916 & 13.83 & 3.60 & 1.63 & 73.09 & 0.61 & 9.17 & 0.00 & 0.10 & 3 \\
+
+max & 1.53393 & 17.38 & 4.49 & 3.50 & 75.41 & 6.21 & 16.19 & 3.15 & 0.51 & 7 \\ \hline
+
+$\hat{\mu}$ & 1.51837 & 13.41 & 2.68 & 1.44 & 72.65 & 0.50 & 8.96 & 0.18 & 0.06 & (2.78) \\
+
+mode & 1.51755 & 13.00 & 3.60 & 1.36 & 72.99 & 0.57 & 8.40 & 0.00 & 0.11 & 1 \\
+
+$\hat{s}$ & 0.00001 & 0.66 & 2.07 & 0.25 & 0.60 & 0.42 & 2.02 & 0.25 & 0.01 & (4.41) \\
+
+$\hat{\sigma}$ & 0.00303 & 0.81 & 1.44 & 0.50 & 0.77 & 0.65 & 1.42 & 0.50 & 0.10 & (2.10) \\ 
+
+    \end{tabular}
+    \caption{Basic summary statistics for the data set.}
+    \label{tab:summary_statistics}
+\end{table}
+
+\textbf{\texttt{RI}:} The refraction indices are within a narrow band. The refraction index of most glass is $\approx 1.5$ is expected for glass\footnote{\url{https://en.wikipedia.org/wiki/List_of_refractive_indices}}, so the obtained values are realistic.
+
+\textbf{\texttt{Na, Si}:} Almost all observations contain $\approx$ 13 \% Natrium oxide and $\approx $ 73 \% Silicon oxide. This leaves a small weight percentage of other trace materials. 
+
+\textbf{median, mode:} The empirical mean values and modes are very close for all ratio attributes, so the data set does not appear to include many impactful outliers. This will be further investigated with box plots in the following section. 
+
+\textbf{\texttt{type}:} The empirical mean, variance, and standard deviation values ($\hat{\mu}, \hat{s}, \hat{\sigma}$) of discrete variables can be easily computed if the discrete variable is type cast to a floating point representation\footnote{in Python, discrete values are often just stored as floats anyway, so no type casting is needed}, but what do these values \textit{mean}? What is their semantics? For the attribute \texttt{type}, the value $\hat{\mu} = 2.78$ means that the categories seem skewed towards "lower" categories, e.g. observations with \texttt{type} = 1 and \texttt{type} = 2 are over-represented in the data set.
+
+This is most visible through the percentiles and the mode: $p_{50}=2$, $p_{75}=2$, and the mode is 1, so the lower categories are significantly over-represented in the data set. This is influenced by lack of data points with category 4, as mentioned in subsection \ref{sec:data_issues}.
+
+\subsection{Correlation matrix}
+\label{sec:CorrMat}
+
+We will now examine the correlation matrix for the data set. The \texttt{type} attribute has been 1-out-of-K coded to six separate attributes: \texttt{type1}, \texttt{type2}, \texttt{type3}, \texttt{type5}, \texttt{type6}, \texttt{type7}.
+
+\input{explanation_of_variables/cormatrix.tex}
+%\input{explanation_of_variables/cormatrixcolor.tex}
+
